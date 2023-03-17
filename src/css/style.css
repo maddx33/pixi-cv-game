@@ -1,0 +1,32 @@
+html, body {margin: 0; height: 100%; overflow: hidden}
+
+#score {
+    position: absolute;
+    color: black;
+    font-size: 24px;
+    top: 0;
+    left: 15px;
+}
+
+#health {
+    position: absolute;
+    color: black;
+    font-size: 24px;
+    top: 25px;
+    left: 15px;
+}
+
+#game-over {
+    position: absolute;
+    color: black;
+    font-size: 36px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% ,-50%);
+    display: none;
+}
+
+#try-again {
+    display: block;
+    width: 100%;
+}
