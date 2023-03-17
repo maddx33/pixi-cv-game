@@ -4,6 +4,7 @@ import {System} from "../../../engine/ecs/System";
 import {ECS} from "../../../engine/ecs/ECS";
 import {Entity} from "../../../engine/ecs/Entity";
 import {ColliderComponent} from "../components/ColliderComponent";
+import {GameObjectComponent} from "../components/GameObjectComponent";
 
 export type ColliderTag = "FOOD" | "PLAYER";
 
@@ -15,14 +16,16 @@ export class CollisionSystem extends System {
         this.ecs = ecs;
     }
 
-    requiredComponents: Set<Function> = new Set<Function>().add(ColliderComponent);
+    requiredComponents: Set<Function> = new Set<Function>([ColliderComponent, GameObjectComponent])
 
     update(entities: Set<Entity>, dt: number) {
         const clonedSet = new Set(entities);
         for (let entity of entities) {
             const collider = entity.get(ColliderComponent);
+            const colliderGameObject = entity.get(GameObjectComponent);
             for (let entity2 of clonedSet) {
                 const collider2 = entity2.get(ColliderComponent);
+                const colliderGameObject2 = entity2.get(GameObjectComponent);
 
                 if(entity.id === entity2.id) {
                     continue;
@@ -32,7 +35,7 @@ export class CollisionSystem extends System {
                     continue;
                 }
 
-                if(this.detectContainerCollision(collider.object, collider2.object)){
+                if(this.detectContainerCollision(colliderGameObject.container, colliderGameObject2.container)){
                     collider.onCollision?.call(collider)
                     collider2.onCollision?.call(collider2)
                 }
