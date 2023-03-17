@@ -1,14 +1,14 @@
 import {AnimatedSprite, Container} from "pixi.js";
 import {Component} from "../../../engine/ecs/Component";
 
-export class AnimationComponent<T> extends Component {
+export class AnimationComponent<TState extends string, T> extends Component {
     currentAnimation?: AnimatedSprite;
-    animations: Map<string, AnimatedSprite>;
-    transitions: Map<string, (args: T) => boolean>;
+    animations: Map<TState, AnimatedSprite>;
+    transitions: Map<TState, (args: T) => boolean>;
     data: T;
     parent: Container;
 
-    setCurrentAnimation(animationKey: string) {
+    setCurrentAnimation(animationKey: TState) {
         const animation = this.animations.get(animationKey);
 
         if (!animation) {
@@ -28,7 +28,7 @@ export class AnimationComponent<T> extends Component {
 
     }
 
-    constructor(parent: Container, transitions: Map<string, (args: T) => boolean>, data: T, animations: Map<string, AnimatedSprite>) {
+    constructor(parent: Container, transitions: Map<TState, (args: T) => boolean>, data: T, animations: Map<TState, AnimatedSprite>) {
         super();
         this.parent = parent;
         this.animations = animations;

@@ -38,12 +38,13 @@ export class Player {
             body2DComponent.force.x = -15
         });
 
-        const animationMap: Map<string, AnimatedSprite> = new Map([
+        const animationMap: Map<PlayerAnimationState, AnimatedSprite> = new Map([
             ["IDLE", new AnimatedSprite(sheet.animations['knight iso char_idle'])],
             ["RIGHT", new AnimatedSprite(sheet.animations['knight iso char_run right'])],
             ["LEFT", new AnimatedSprite(sheet.animations['knight iso char_run left'])],
         ]);
-        const animator = new AnimationComponent<Body2DComponent>(gameObjectComponent.container, new Map(
+
+        const animator = new AnimationComponent<PlayerAnimationState, Body2DComponent>(gameObjectComponent.container, new Map(
                 [
                     ["RIGHT", (b2D) => b2D.velocity.x > 0.5],
                     ["LEFT", (b2D) => b2D.velocity.x < -0.5],
@@ -91,3 +92,5 @@ export class Player {
         }
     }
 }
+
+export type PlayerAnimationState = "IDLE" | "LEFT" | "RIGHT";
