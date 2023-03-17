@@ -17,9 +17,10 @@ export class FoodSpawner {
 
     async init() {
         this.foodSheet = await Assets.load('assets/food.json');
-        setInterval(this.spawn.bind(this), 2000);
+        let interval = setInterval(this.spawn.bind(this), 2000);
+        window.addEventListener("focus", () => {interval = setInterval(this.spawn.bind(this), 2000)});
+        window.addEventListener("blur", () => {clearInterval(interval)});
     }
-
 
     spawn() {
         const food = this.objectPool.find(i => i.entity.get(Body2DComponent).freeze);
@@ -30,7 +31,6 @@ export class FoodSpawner {
         } else {
             this.createFood();
         }
-
     }
 
     createFood() {
@@ -42,6 +42,5 @@ export class FoodSpawner {
         this.app.stage.addChild(food.entity.get(GameObjectComponent).container);
         food.entity.get(GameObjectComponent).container.position.x = this.foodRandomX();
         this.objectPool.push(food);
-
     }
 }
