@@ -2,6 +2,7 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
+    devtool: "inline-source-map",
     mode: 'development',
     entry: './src/index.ts',
     output: {
@@ -12,6 +13,7 @@ const config = {
         extensions: ['.tsx', '.ts', '.js']
     },
     module: {
+
         rules: [
             {
                 test: /\.css$/i,
