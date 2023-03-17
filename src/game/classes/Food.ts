@@ -23,6 +23,7 @@ export class Food {
             if(body2DComponent.position.y > window.innerHeight) {
                 gameObjectComponent.container.position.y = FOOD_Y_STARTING_POINT;
                 body2DComponent.freeze = true;
+                Player.health--;
                 Player.updateHealth();
             }
         };

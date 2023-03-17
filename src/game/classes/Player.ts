@@ -17,7 +17,7 @@ export class Player {
     rightArrow: Command;
 
     static score: number = 0;
-    static health: number = 3;
+    static health: number = 10;
 
     constructor(sheet: Spritesheet) {
         const ecs = ECS.instance;
@@ -67,6 +67,8 @@ export class Player {
         ecs.addComponent(this.entity, animator);
         gameObjectComponent.container.position.y = window.innerHeight - 100;
         gameObjectComponent.container.position.x = window.innerWidth / 2;
+
+        Player.updateHealth();
     }
 
     addScore(score: number) {
@@ -80,7 +82,6 @@ export class Player {
         const gameOverUI = document.getElementById("game-over");
 
         if (scoreUI) {
-            Player.health--;
             scoreUI.innerHTML = `Health ${Player.health}`;
         }
 
