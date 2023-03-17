@@ -17,7 +17,9 @@ export class FoodSpawner {
 
     async init() {
         this.foodSheet = await Assets.load('assets/food.json');
-        setInterval(this.spawn.bind(this), 2000);
+        let interval = setInterval(this.spawn.bind(this), 2000);
+        window.addEventListener("focus", () => {interval = setInterval(this.spawn.bind(this), 2000)});
+        window.addEventListener("blur", () => {clearInterval(interval)});
     }
 
     spawn() {
