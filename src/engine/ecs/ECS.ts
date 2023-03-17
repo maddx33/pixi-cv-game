@@ -1,12 +1,13 @@
 import {Component} from "./Component";
 import {System} from "./System";
 import {Entity} from "./Entity";
+import {Application} from "pixi.js";
 
 export class ECS {
-    private entities: Array<Entity> = [];
+    public app?: Application;
     private systems = new Map<System, Set<Entity>>()
     private static _instance: ECS;
-
+    private entities: Array<Entity> = [];
     private entityID = 0;
     public static get instance() {
         if (!ECS._instance) {
