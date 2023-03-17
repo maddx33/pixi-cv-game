@@ -20,7 +20,6 @@ export class FoodSpawner {
         setInterval(this.spawn.bind(this), 2000);
     }
 
-
     spawn() {
         const food = this.objectPool.find(i => i.entity.get(Body2DComponent).freeze);
         if (food) {
@@ -30,7 +29,6 @@ export class FoodSpawner {
         } else {
             this.createFood();
         }
-
     }
 
     createFood() {
@@ -42,6 +40,5 @@ export class FoodSpawner {
         this.app.stage.addChild(food.entity.get(GameObjectComponent).container);
         food.entity.get(GameObjectComponent).container.position.x = this.foodRandomX();
         this.objectPool.push(food);
-
     }
 }
